@@ -6,17 +6,19 @@ import { RootState } from '@/lib/store';
 import { logout } from '@/lib/store';
 import { Button } from '@/components/ui/button';
 import { ShoppingCart, User, LogOut, Utensils, Home } from 'lucide-react';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 export function Navigation() {
   const { isAuthenticated, user, cart } = useSelector((state: RootState) => state.app);
   const dispatch = useDispatch();
   const pathname = usePathname();
+  const router = useRouter();
 
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     dispatch(logout());
+    router.push('/')
   };
 
   const navItems = [
@@ -27,8 +29,8 @@ export function Navigation() {
   const getLinkClass = (href: string) => {
     const isActive = pathname === href;
     return `flex items-center space-x-2 px-3 py-2 rounded-lg transition-all duration-200 font-medium ${isActive
-        ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
-        : 'text-slate-600 hover:text-emerald-600 hover:bg-slate-50'
+      ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+      : 'text-slate-600 hover:text-emerald-600 hover:bg-slate-50'
       }`;
   };
 
@@ -90,7 +92,7 @@ export function Navigation() {
                 </Link>
 
                 <div className="flex items-center space-x-3 border-l border-slate-200 pl-4">
-             
+
                   <Button
                     variant="outline"
                     size="sm"
@@ -112,7 +114,7 @@ export function Navigation() {
           </div>
         </div>
 
-      
+
       </div>
     </nav>
   );

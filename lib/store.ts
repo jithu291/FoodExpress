@@ -66,7 +66,6 @@ const appSlice = createSlice({
       state.isAuthenticated = false;
       localStorage.removeItem('user');
       localStorage.removeItem('cart');
-
     },
     initializeState: (state) => {
       const savedCart = localStorage.getItem('cart');
